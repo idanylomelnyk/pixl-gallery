@@ -1,0 +1,8 @@
+.gallery {
+  column-count: 3;
+}
+
+.gallery a {
+  display: block;
+  margin-bottom: 16px;
+}
