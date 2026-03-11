@@ -2,9 +2,12 @@ import { fetchImagesFromPixabayAPI } from "../api/pixabay";
 import { showNotification } from "../utils/notifications";
 
 const galleryEl = document.querySelector(".gallery");
+const loaderEl = document.querySelector(".loader");
 
 export async function getPhotosAndRender(query) {
   try {
+    loaderEl.classList.remove("loader-hidden");
+
     const data = await fetchImagesFromPixabayAPI(query);
 
     if (!data.length) {
@@ -12,9 +15,12 @@ export async function getPhotosAndRender(query) {
         "Oops! No results for your search. Try searching for something else",
       );
     }
+
     renderGallery(data);
   } catch (error) {
     showNotification(error.message);
+  } finally {
+    loaderEl.classList.add("loader-hidden");
   }
 }
 

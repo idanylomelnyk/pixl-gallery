@@ -14,17 +14,22 @@
   <body>
     <header class="header">
       <div class="container">
-        <a href="./">Pixl Gallery</a>
+        <div class="header__wrapper">
+          <a href="./">Pixl Gallery</a>
 
-        <form class="search-form">
-          <input type="search" placeholder="Nature" name="search" autofocus />
-          <button type="submit">Search</button>
-        </form>
+          <form class="search-form">
+            <input type="search" placeholder="Nature" name="search" autofocus />
+            <button type="submit">Search</button>
+          </form>
+        </div>
       </div>
     </header>
 
     <main>
       <section class="hero">
+        <div class="loader-wrapper">
+          <span class="loader loader-hidden"></span>
+        </div>
         <div class="container">
           <div class="gallery"></div>
         </div>
