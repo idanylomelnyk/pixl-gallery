@@ -3,19 +3,24 @@ import { showNotification } from "../utils/notifications";
 
 const galleryEl = document.querySelector(".gallery");
 const loaderEl = document.querySelector(".loader");
+const loadMoreButtonEl = document.querySelector(".load-more");
+let currentQuery = "nature";
+let currentPage = 1;
 
-export async function getPhotosAndRender(query) {
+export async function getPhotosAndRender(query, page) {
+  currentQuery = query;
+  currentPage = page;
+
   try {
     loaderEl.classList.remove("loader-hidden");
 
-    const data = await fetchImagesFromPixabayAPI(query);
+    const data = await fetchImagesFromPixabayAPI(query, page);
 
     if (!data.length) {
       return showNotification(
         "Oops! No results for your search. Try searching for something else",
       );
     }
-
     renderGallery(data);
   } catch (error) {
     showNotification(error.message);
@@ -25,8 +30,6 @@ export async function getPhotosAndRender(query) {
 }
 
 function renderGallery(images) {
-  galleryEl.innerHTML = "";
-
   const galleryMarkup = images
     .map(
       ({ largeImageURL, webformatURL, imageWidth, imageHeight, tags }) =>
@@ -42,4 +45,10 @@ function renderGallery(images) {
   galleryEl.insertAdjacentHTML("beforeend", galleryMarkup);
 }
 
-getPhotosAndRender("nature");
+getPhotosAndRender(currentQuery, currentPage);
+
+loadMoreButtonEl.addEventListener("click", () => {
+  currentPage += 1;
+
+  getPhotosAndRender(currentQuery, currentPage);
+});

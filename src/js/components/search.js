@@ -1,6 +1,7 @@
 import { getPhotosAndRender } from "./gallery";
 
 const searchFormEl = document.querySelector(".search-form");
+const galleryEl = document.querySelector(".gallery");
 
 searchFormEl.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -9,5 +10,6 @@ searchFormEl.addEventListener("submit", (e) => {
 
   if (!query) return;
 
-  getPhotosAndRender(query);
+  galleryEl.innerHTML = "";
+  getPhotosAndRender(query, 1);
 });
