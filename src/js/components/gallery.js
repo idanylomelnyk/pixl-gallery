@@ -16,12 +16,21 @@ export async function getPhotosAndRender(query, page) {
 
     const data = await fetchImagesFromPixabayAPI(query, page);
 
-    if (!data.length) {
+    const totalPages = Math.ceil(data.totalHits / 21);
+
+    if (currentPage < totalPages) {
+      loadMoreButtonEl.classList.remove("load-more-hidden");
+    } else {
+      loadMoreButtonEl.classList.add("load-more-hidden");
+    }
+
+    if (!data.hits.length) {
+      loadMoreButtonEl.classList.add("load-more-hidden");
       return showNotification(
         "Oops! No results for your search. Try searching for something else",
       );
     }
-    renderGallery(data);
+    renderGallery(data.hits);
   } catch (error) {
     showNotification(error.message);
   } finally {

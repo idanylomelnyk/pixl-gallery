@@ -16,5 +16,5 @@ export async function fetchImagesFromPixabayAPI(query, page) {
     },
   });
 
-  return response.data.hits;
+  return response.data;
 }
