@@ -12,7 +12,7 @@ export async function fetchImagesFromPixabayAPI(query, page) {
       image_type: "photo",
       safesearch: true,
       page,
-      per_page: 20,
+      per_page: 24,
     },
   });
 

@@ -3,7 +3,16 @@ import { showNotification } from "../utils/notifications";
 
 const galleryEl = document.querySelector(".gallery");
 const loaderEl = document.querySelector(".loader");
-const loadMoreButtonEl = document.querySelector(".load-more");
+const prevPageButtonEl = document.querySelector(
+  ".pagination-list__button-prev",
+);
+const nextPageButtonEl = document.querySelector(
+  ".pagination-list__button-next",
+);
+const paginationEl = document.querySelector(".pagination");
+const currentPageEl = document.querySelector(".pagination-info__current-page");
+const totalPageEl = document.querySelector(".pagination-info__total-page");
+
 let currentQuery = "nature";
 let currentPage = 1;
 
@@ -16,20 +25,24 @@ export async function getPhotosAndRender(query, page) {
 
     const data = await fetchImagesFromPixabayAPI(query, page);
 
-    const totalPages = Math.ceil(data.totalHits / 21);
+    const totalPages = Math.ceil(data.totalHits / 24);
 
-    if (currentPage < totalPages) {
-      loadMoreButtonEl.classList.remove("load-more-hidden");
-    } else {
-      loadMoreButtonEl.classList.add("load-more-hidden");
-    }
+    prevPageButtonEl.disabled = currentPage < 2;
+    nextPageButtonEl.disabled = totalPages === currentPage;
+
+    currentPageEl.textContent = currentPage;
+    totalPageEl.textContent = totalPages;
 
     if (!data.hits.length) {
-      loadMoreButtonEl.classList.add("load-more-hidden");
-      return showNotification(
+      paginationEl.classList.add("hidden");
+      showNotification(
         "Oops! No results for your search. Try searching for something else",
       );
+      return;
+    } else {
+      paginationEl.classList.remove("hidden");
     }
+
     renderGallery(data.hits);
   } catch (error) {
     showNotification(error.message);
@@ -39,6 +52,8 @@ export async function getPhotosAndRender(query, page) {
 }
 
 function renderGallery(images) {
+  galleryEl.innerHTML = "";
+
   const galleryMarkup = images
     .map(
       ({ largeImageURL, webformatURL, imageWidth, imageHeight, tags }) =>
@@ -56,8 +71,18 @@ function renderGallery(images) {
 
 getPhotosAndRender(currentQuery, currentPage);
 
-loadMoreButtonEl.addEventListener("click", () => {
+prevPageButtonEl.addEventListener("click", () => {
+  currentPage -= 1;
+
+  window.scrollTo(0, 0);
+
+  getPhotosAndRender(currentQuery, currentPage);
+});
+
+nextPageButtonEl.addEventListener("click", () => {
   currentPage += 1;
+
+  window.scrollTo(0, 0);
 
   getPhotosAndRender(currentQuery, currentPage);
 });

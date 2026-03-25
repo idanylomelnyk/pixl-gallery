@@ -15,7 +15,7 @@
     <header class="header">
       <div class="container">
         <div class="header__wrapper">
-          <a class="logo" href="./"> Pixl Gallery</a>
+          <a class="logo" href="./">Pixl Gallery</a>
 
           <form class="search-form" autocomplete="off">
             <input
@@ -52,9 +52,25 @@
           </div>
           <div class="gallery"></div>
 
-          <button type="button" class="load-more load-more-hidden">
-            Load more
-          </button>
+          <div class="pagination">
+            <ul class="pagination-list">
+              <li class="pagination-list__item">
+                <button class="pagination-list__button-prev" type="button">
+                  Previous
+                </button>
+              </li>
+              <li class="pagination-list__item">
+                <button class="pagination-list__button-next" type="button">
+                  Next
+                </button>
+              </li>
+            </ul>
+
+            <p class="pagination-info">
+              Page <span class="pagination-info__current-page"></span> of
+              <span class="pagination-info__total-page"></span>
+            </p>
+          </div>
         </div>
       </section>
     </main>
