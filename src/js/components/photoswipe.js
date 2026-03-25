@@ -10,9 +10,6 @@ const lightbox = new PhotoSwipeLightbox({
 
   paddingFn: (viewportSize) => {
     return {
-      top: 20,
-      bottom: 20,
-      left: 70,
       right: 70,
     };
   },

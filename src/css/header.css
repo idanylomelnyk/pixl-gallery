@@ -1,9 +1,62 @@
 .header {
-  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  padding: 16px 0;
+  background-color: lightblue;
 }
 
 .header__wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.logo {
+  position: relative;
+  left: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.logo::before {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  position: absolute;
+  z-index: -1;
+  top: -4px;
+  left: -10px;
+}
+
+.search-form {
+  display: flex;
+}
+
+.search-form__input {
+  width: 240px;
+  height: 40px;
+  padding: 0 12px;
+  border: none;
+}
+
+.search-form__input:focus {
+  outline: none;
+}
+
+.search-form__button {
+  height: 40px;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightcoral;
+  border: none;
+  cursor: pointer;
 }

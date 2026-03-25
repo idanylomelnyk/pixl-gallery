@@ -45,7 +45,7 @@ function renderGallery(images) {
         `  <a href="${largeImageURL}" 
             data-pswp-width="${imageWidth}" 
             data-pswp-height="${imageHeight}">
-            <img src="${webformatURL}" alt="${tags}" />
+            <img class="gallery__img" src="${webformatURL}" width="385" height="256" alt="${tags}" />
             <span class="pswp-caption-content">Caption content</span>
           </a>`,
     )
