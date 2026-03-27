@@ -12,6 +12,28 @@
   object-fit: cover;
 }
 
+.image-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.image-info__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.image-info__icon {
+  width: 32px;
+  height: 32px;
+}
+
+.image-tags {
+  margin-top: 16px;
+  line-height: 1.4;
+}
+
 .pagination {
   margin-top: 20px;
   display: flex;

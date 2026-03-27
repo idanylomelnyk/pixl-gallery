@@ -1,5 +1,8 @@
 import { fetchImagesFromPixabayAPI } from "../api/pixabay";
 import { showNotification } from "../utils/notifications";
+import likeIcon from "../../assets/icons/heart.svg";
+import downloadIcon from "../../assets/icons/download.svg";
+import eyeIcon from "../../assets/icons/eye.svg";
 
 const galleryEl = document.querySelector(".gallery");
 const loaderEl = document.querySelector(".loader");
@@ -56,12 +59,21 @@ function renderGallery(images) {
 
   const galleryMarkup = images
     .map(
-      ({ largeImageURL, webformatURL, imageWidth, imageHeight, tags }) =>
+      ({
+        largeImageURL,
+        webformatURL,
+        imageWidth,
+        imageHeight,
+        tags,
+        views,
+        likes,
+        downloads,
+      }) =>
         `  <a href="${largeImageURL}" 
             data-pswp-width="${imageWidth}" 
             data-pswp-height="${imageHeight}">
             <img class="gallery__img" src="${webformatURL}" width="385" height="256" alt="${tags}" />
-            <span class="pswp-caption-content">Caption content</span>
+            ${createCaption({ views, likes, downloads, tags })}
           </a>`,
     )
     .join("");
@@ -86,3 +98,25 @@ nextPageButtonEl.addEventListener("click", () => {
 
   getPhotosAndRender(currentQuery, currentPage);
 });
+
+function createCaption({ views, likes, downloads, tags }) {
+  return `
+    <div class="pswp-caption-content">
+      <ul class="image-info">
+        <li class="image-info__item">
+          <img class="image-info__icon" src="${eyeIcon}" alt="Views" />${views.toLocaleString()}
+        </li>
+        <li class="image-info__item">
+          <img
+            class="image-info__icon"
+            src="${downloadIcon}"
+            alt="Downloads"
+          />${downloads.toLocaleString()}
+        </li>
+        <li class="image-info__item">
+          <img class="image-info__icon" src="${likeIcon}" alt="Likes" />${likes.toLocaleString()}
+        </li>
+      </ul>
+      <p class="image-tags">Tags: ${tags}</p>
+    </div>`;
+}
