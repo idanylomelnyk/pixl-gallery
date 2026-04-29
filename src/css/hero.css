@@ -4,12 +4,28 @@
 
 .gallery {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
 }
 
 .gallery__img {
   object-fit: cover;
+
+  @media (min-width: 768px) {
+    width: 354px;
+    height: 238px;
+  }
+
+  @media (min-width: 1240px) {
+    width: 386.6px;
+    height: 256px;
+  }
+
+  @media (min-width: 1600px) {
+    width: 375px;
+    height: 250px;
+  }
 }
 
 .image-info {
